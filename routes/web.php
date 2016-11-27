@@ -26,4 +26,6 @@ Route::get('/home', 'HomeController@index');
 // Goes to a page which displays a list of all articles.
 Route::get('/articles', 'ArticlesController@index');
 
-Route::get('/articles/{{article}}', 'ArticlesController@show');
+// Goes to a specific article page given it's id.
+// It will display an article as well as all associated comments.
+Route::get('/articles/{article}', 'ArticlesController@show');
