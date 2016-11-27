@@ -23,4 +23,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+// Goes to a page which displays a list of all articles.
 Route::get('/articles', 'ArticlesController@index');
+
+Route::get('/articles/{{article}}', 'ArticlesController@show');
