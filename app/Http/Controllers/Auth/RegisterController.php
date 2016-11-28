@@ -51,7 +51,6 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'user_type'=> 'required', // validate user_type
         ]);
     }
 
@@ -66,7 +65,6 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'user_type'=>$data['user_type'], // Get user type from form
             'password' => bcrypt($data['password']),
         ]);
     }

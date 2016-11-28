@@ -38,21 +38,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('user_type') ? ' has-error' : '' }}">
-                            <label for="user_type" class="col-md-4 control-label">User_Type</label>
-
-                            <div class="col-md-6">
-                                <input id="user_type" type="text" class="form-control" name="user_type" value="{{ old('user_type') }}" required autofocus>
-
-                                @if ($errors->has('user_type'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('user_type') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>

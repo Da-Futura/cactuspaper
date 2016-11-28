@@ -12,7 +12,7 @@
 
     <!-- Form which adds a new article given contents and the current user
          It calls the route /articles/create -->
-    <form method="POST" action="/articles/create">
+    <form method="POST" action="/article/create">
 
         {{csrf_field()}}
 

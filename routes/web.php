@@ -19,8 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index');
 
 // Goes to a page which displays a list of all articles.
@@ -28,11 +26,11 @@ Route::get('/articles', 'ArticlesController@index');
 
 // Goes to a specific article page given it's id.
 // It will display an article as well as all associated comments.
-Route::get('/articles/{article}', 'ArticlesController@show');
+Route::get('/article/{article}', 'ArticlesController@show');
 
 // Creates a new comment by
 // passing  an article id and the request to the Comments controller
-Route::post('/articles/{article}/newComment', 'CommentsController@store');
+Route::post('/article/{article}/newComment', 'CommentsController@store');
 
 // Creates a new article tied to the current user
-Route::post('articles/create', 'ArticlesController@store');
+Route::post('article/create', 'ArticlesController@store');

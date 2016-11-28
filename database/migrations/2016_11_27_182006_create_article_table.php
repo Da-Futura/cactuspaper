@@ -19,6 +19,7 @@ class CreateArticleTable extends Migration
             $table->string('url')->unique();
             $table->string('summary');
             $table->integer('user_id')->unsigned();
+            $table->integer('group_id')->unsigned();
             $table->timestamps();
         });
     }

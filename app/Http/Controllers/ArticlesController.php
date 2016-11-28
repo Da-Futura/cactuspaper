@@ -12,6 +12,14 @@ use App\User;
 
 class ArticlesController extends Controller
 {
+
+    // Adds middleware preventing anyone except teachers from
+    // Calling the store method to create articles
+    public function __construct()
+    {
+        $this->middleware('teacher', ['only' =>'store']);
+    }
+
     // Queries the database for all articles and then passes an array of that
     // to the articles/index view.
     public function index(){
@@ -26,7 +34,7 @@ class ArticlesController extends Controller
         return view('articles.show', compact('article'));
     }
 
-    // Function stores a new note given its corresponding article
+    // Function stores a new article given its corresponding user
     public function store(Request $request){
 
         //Checks if logged in, creates the article and redirects to

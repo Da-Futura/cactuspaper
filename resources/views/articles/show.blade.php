@@ -13,7 +13,7 @@
 
     <!-- Form which adds a new comment given contents and the currnt user
        It calls the route /articles/{article}/newComment -->
-    <form method="POST" action="/articles/{{$article->id}}/newComment">
+    <form method="POST" action="/article/{{$article->id}}/newComment">
 
         {{csrf_field()}}
 
