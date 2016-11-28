@@ -28,4 +28,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // This defines the one to many relationship
+    // Between Users and Comments
+    // Corresponding one in the Comment model
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
+    // This defines the one to many relationship
+    // Between Users and Articles
+    // Corresponding one in the Article model
+    public function articles(){
+        return $this->hasMany(Article::class);
+    }
 }

@@ -17,11 +17,9 @@ class ArticlesController extends Controller
     }
 
     // Finds the Article associated with the id
-    // loads all associated comments to prevent an n+1 inefficiency
     // Calls the articles/show view
     public function show(Article $article){
-
-        $article->load('comments');
+        $article->user;
         return view('articles.show', compact('article'));
     }
 }
