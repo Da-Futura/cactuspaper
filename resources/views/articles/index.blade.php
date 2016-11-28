@@ -30,6 +30,12 @@
             <label for="summary" class="col-md-4 control-label">Summary</label>
             <textarea class="form-control" cols="10" id="" name="summary" rows="1">{{old('summary')}}</textarea>
         </div>
+
+        <div class="form-group">
+            <label for="group_id" class="col-md-4 control-label">Group Id</label>
+            <textarea class="form-control" cols="10" id="" name="group_id" rows="1">{{old('group_id')}}</textarea>
+        </div>
+
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Add Article</button>
         </div>

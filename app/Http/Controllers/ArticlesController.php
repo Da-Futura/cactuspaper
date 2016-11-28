@@ -17,7 +17,7 @@ class ArticlesController extends Controller
     // Calling the store method to create articles
     public function __construct()
     {
-        $this->middleware('teacher', ['only' =>'store']);
+//        $this->middleware('teacher', ['only' =>'store']);
     }
 
     // Queries the database for all articles and then passes an array of that
@@ -41,7 +41,6 @@ class ArticlesController extends Controller
         // last page
         if(Auth::user()){
             $article = new Article($request->all());
-
             $user_id = Auth::id();
             $article->user_id = $user_id;
             $article->save();

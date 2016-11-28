@@ -8,7 +8,7 @@ class Article extends Model
 {
 
     protected $fillable = [
-        'title', 'url', 'summary', 'user_id'
+        'title', 'url', 'summary', 'user_id', 'group_id'
     ];
 
     // This defines the one to many relationship between
