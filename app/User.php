@@ -14,8 +14,10 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    //Dammit JL, don't forget this when you're making forms.
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','user_type'
     ];
 
     /**
