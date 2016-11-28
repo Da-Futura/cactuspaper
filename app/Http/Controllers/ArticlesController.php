@@ -29,7 +29,7 @@ class ArticlesController extends Controller
     // Function stores a new note given its corresponding article
     public function store(Request $request){
 
-        //Checks if logged in, creates the comment and redirects to
+        //Checks if logged in, creates the article and redirects to
         // last page
         if(Auth::user()){
             $article = new Article($request->all());

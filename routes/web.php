@@ -34,4 +34,5 @@ Route::get('/articles/{article}', 'ArticlesController@show');
 // passing  an article id and the request to the Comments controller
 Route::post('/articles/{article}/newComment', 'CommentsController@store');
 
+// Creates a new article tied to the current user
 Route::post('articles/create', 'ArticlesController@store');
