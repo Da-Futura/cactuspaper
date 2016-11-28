@@ -37,12 +37,17 @@ class User extends Authenticatable
     }
 
     // This defines the one to many relationship
-    // Between Users and Articles
+    // Between Users and Articles.
+    // A User can have many Articles
     // Corresponding one in the Article model
     public function articles(){
         return $this->hasMany(Article::class);
     }
 
+    // This defines the one to many relationship
+    // Between Users and Memberships
+    // A user can have many memberships
+    // Corresponding one in Membership model
     public function memberships(){
         return $this->hasMany(Membership::class);
     }

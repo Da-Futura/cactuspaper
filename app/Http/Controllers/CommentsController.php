@@ -28,7 +28,5 @@ class CommentsController extends Controller
             return view('auth.login');
         }
 
-
-
     }
 }

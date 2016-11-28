@@ -25,6 +25,10 @@ class Article extends Model
         return $this->belongsTo(User::class);
     }
 
+    // This defines the many to one relationship between
+    // Articles and Groups.
+    // An article belongs to a single group
+    // Corresponding one in Group model.
     public function group(){
         return $this->belongsTo(Group::class);
     }
