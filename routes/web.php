@@ -33,3 +33,5 @@ Route::get('/articles/{article}', 'ArticlesController@show');
 // Creates a new comment by
 // passing  an article id and the request to the Comments controller
 Route::post('/articles/{article}/newComment', 'CommentsController@store');
+
+Route::post('articles/create', 'ArticlesController@store');

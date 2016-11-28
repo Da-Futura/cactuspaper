@@ -18,13 +18,12 @@
         {{csrf_field()}}
 
         <div class="form-group">
+
             <textarea class="form-control" cols="30" id="" name="body" rows="3">{{old('body')}}</textarea>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Add Note</button>
+            <button type="submit" class="btn btn-primary">Add Comment</button>
         </div>
-
-
     </form>
 
 
