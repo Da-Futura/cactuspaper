@@ -29,3 +29,7 @@ Route::get('/articles', 'ArticlesController@index');
 // Goes to a specific article page given it's id.
 // It will display an article as well as all associated comments.
 Route::get('/articles/{article}', 'ArticlesController@show');
+
+// Creates a new comment by
+// passing  an article id and the request to the Comments controller
+Route::post('/articles/{article}/newComment', 'CommentsController@store');

@@ -24,4 +24,10 @@ class Article extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    // Adds a comment to an article given it and it's user_id;
+    public function addComment(Comment $comment, $userId){
+        $comment->user_id = $userId;
+        return $this->comments()->save($comment);
+    }
 }

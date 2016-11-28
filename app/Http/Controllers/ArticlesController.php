@@ -19,7 +19,9 @@ class ArticlesController extends Controller
     // Finds the Article associated with the id
     // Calls the articles/show view
     public function show(Article $article){
-        $article->user;
+        $article->load('comments.user');
         return view('articles.show', compact('article'));
     }
+
+
 }

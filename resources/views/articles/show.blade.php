@@ -10,4 +10,22 @@
         @endforeach
     </ul>
 
+
+    <!-- Form which adds a new comment given contents and the currnt user
+       It calls the route /articles/{article}/newComment -->
+    <form method="POST" action="/articles/{{$article->id}}/newComment">
+
+        {{csrf_field()}}
+
+        <div class="form-group">
+            <textarea class="form-control" cols="30" id="" name="body" rows="3">{{old('body')}}</textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add Note</button>
+        </div>
+
+
+    </form>
+
+
 @stop
