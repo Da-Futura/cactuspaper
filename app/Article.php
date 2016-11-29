@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 // Pulls in the guzzle client
 use GuzzleHttp\Client;
-use GuzzleHttp\articleFunctions;
 
 
 class Article extends Model
@@ -51,19 +50,19 @@ class Article extends Model
 
     // GUZZLER FUNCTIONS
 
-    // Returns a json of the author of an article given it's hardcoded url
-    function getAuthor(){
+    //Generic Alchemy API call
+    function alchmeyCall($type){
 
         // Initiate the guzzler client
         $client = new Client([
             // Base URI is used with relative requests
             'base_uri' => 'https://watson-api-explorer.mybluemix.net/alchemy-api/calls/',
             // You can set any number of default request options.
-            'timeout'  => 2.0,
+            'timeout'  => 30.0,
         ]);
 
         // These are the variables we use to construct the request.
-        $requestType = 'url/URLGetAuthors'; // The type of request specific to alchemy
+        $requestType = $type; // The type of request specific to alchemy
         // https://watson-api-explorer.mybluemix.net/apis/alchemy-language-v1?cm_mc_uid=46759359586214802841274&cm_mc_sid_50200000=1480381318#!/Authors/get_url_URLGetAuthors
 
         $apikey = getenv('ALCHEMY_API_KEY'); // The api key which is stored in .env for security
@@ -83,12 +82,26 @@ class Article extends Model
 
         // This gets the contents of the response, but it's in a string format
         $data = $response->getBody();
+        $responseObject = json_decode($data);
 
-        // This converts the string back to a json
-        $manage = (array) json_decode($data);
+        return $responseObject;
 
-        // Finally, return the json response
-        return $manage;
+    }
+
+
+    // Returns the name of the author from this Article.
+    function getAuthor(){
+        $requestType = 'url/URLGetAuthors';
+
+        $authorObject = $this->alchmeyCall($requestType); //Returns the author object
+        $authorName = $authorObject->authors->names[0]; // Extracts the first name in the string of authors.
+        return $authorName;
+    }
+
+    // Returns a json of the top ranked concepts for this Article
+    function getRankedConcepts(){
+        $requestType = 'url/URLGetRankedConcepts';
+        return $this->alchmeyCall($requestType);
     }
 
 }

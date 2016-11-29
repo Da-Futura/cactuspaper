@@ -16,7 +16,7 @@ class ArticlesController extends Controller
     // Calling the store method to create articles
     public function __construct()
     {
-//        $this->middleware('teacher', ['only' =>'store']);
+        //        $this->middleware('teacher', ['only' =>'store']);
     }
 
     // Queries the database for all articles and then passes an array of that
@@ -53,8 +53,9 @@ class ArticlesController extends Controller
 
     }
 
+    // Returns the author given an article.
     public function alchemyTest(Article $article){
-        $author = $article->getAuthor();
+        $author = $article->getCombined();
         return $author;
 
     }
