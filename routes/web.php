@@ -41,4 +41,4 @@ Route::get('/group/{group}', 'GroupsController@show');
 
 
 // Testing Alchemy API
-Route::get('/alchemy', 'ArticlesController@alchemyTest');
+Route::get('/alchemy/{article}', 'ArticlesController@alchemyTest');
