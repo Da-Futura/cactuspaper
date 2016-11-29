@@ -53,11 +53,4 @@ class ArticlesController extends Controller
 
     }
 
-    // Returns the author given an article.
-    public function alchemyTest(Article $article){
-        $author = $article->getCombined();
-        return $author;
-
-    }
-
 }
