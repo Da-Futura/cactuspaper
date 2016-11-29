@@ -38,3 +38,7 @@ Route::post('article/create', 'ArticlesController@store');
 // Goes to a specific group page given its id.
 // It will display the group and all associated contents.
 Route::get('/group/{group}', 'GroupsController@show');
+
+
+// Testing Alchemy API
+Route::get('/alchemy', 'ArticlesController@alchemyTest');
