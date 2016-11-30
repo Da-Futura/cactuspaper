@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArticleTable extends Migration
+class CreateConceptsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateArticleTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('concepts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('url')->unique();
-            $table->string('author')->default('Unknown');
-            $table->string('summary');
-            $table->integer('user_id')->unsigned();
-            $table->integer('group_id')->unsigned();
+            $table->string('name');
+            $table->string('dbpedia');
+            $table->string('freebase');
+            $table->string('opencyc');
+            $table->string('geo');
+            $table->string('yago');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateArticleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('concepts');
     }
 }

@@ -12,7 +12,7 @@ class Article extends Model
 {
 
     protected $fillable = [
-        'title', 'url', 'summary', 'user_id', 'group_id'
+        'url', 'summary', 'group_id'
     ];
 
     // This defines the one to many relationship between
@@ -43,6 +43,14 @@ class Article extends Model
     // Corresponding one in KeySentiment model.
     public function keySentiment(){
         return $this->hasMany(KeySentiment::class);
+    }
+
+    // This defines the one to many relationship between
+    // Articles and ConceptRelationships.
+    // Each Article can have many ConceptRelationships.
+    // Corresponding one in ConceptRelationship model.
+    public function conceptRelationship(){
+        return $this->hasMany(ConceptRelationship::class);
     }
 
     // Adds a comment to an article given it and it's user_id;

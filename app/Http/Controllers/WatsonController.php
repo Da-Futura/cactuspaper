@@ -45,7 +45,11 @@ class WatsonController extends Controller
             $userId = Auth::id();
             $article->user_id = $userId;
 
+            $keywordObject = $this->getKeywordsWithSentiment($articleUrl);
+            return $keywordObject->keywords;
             $article->save();
+
+
 
             return back();
 
@@ -57,7 +61,7 @@ class WatsonController extends Controller
     }
 
 
-
+    // We can use getCombined Data to save on a api call, but it makes the code more complicated.
     function watsonCall($type, $url){
 
         // Initiate the guzzler client
@@ -110,13 +114,42 @@ class WatsonController extends Controller
     }
 
 
-    // Returns a json of the top ranked concepts for this Article
-    function getRankedConcepts($url){
-        $requestType = 'url/URLGetRankedConcepts';
-        return $this->watsonCall($requestType, $url);
+
+    function getKeywordsWithSentiment ($url){
+
+        // Initiate the guzzler client
+        $client = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => 'https://watson-api-explorer.mybluemix.net/alchemy-api/calls/',
+            // You can set any number of default request options.
+            'timeout'  => 30.0,
+        ]);
+
+        // These are the variables we use to construct the request.
+        $requestType = "url/URLGetRankedKeywords"; // The type of request specific to alchemy
+        // https://watson-api-explorer.mybluemix.net/apis/alchemy-language-v1?cm_mc_uid=46759359586214802841274&cm_mc_sid_50200000=1480//381318#!/Authors/get_url_URLGetAuthors
+
+        $apikey = getenv('ALCHEMY_API_KEY'); // The api key which is stored in .env for security
+        $outputMode="json"; // The format to return.
+        $sentimentFlag = 1;
+
+
+
+
+        // This is where the call is made. The requestType is appended to the base_uri
+        // Then all the values are passed in as parameters.
+        $response = $client->request('GET', $requestType , [
+            'query' => ['apikey' => $apikey,
+                        'url' => $url,
+                        'outputMode' => $outputMode,
+                        'sentiment' => $sentimentFlag
+            ]
+        ]);
+
+        $data = $response->getBody();
+        $responseObject = json_decode($data);
+
+        return $responseObject;
     }
-
-
-
 
 }
