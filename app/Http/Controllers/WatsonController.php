@@ -6,6 +6,7 @@ use DB;
 use Auth;
 use App\User;
 use App\Concept;
+use App\ConceptRelationship;
 use App\Article;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
@@ -45,11 +46,12 @@ class WatsonController extends Controller
 
             $userId = Auth::id();
             $article->user_id = $userId;
+            $article->save();
 
             $conceptsObject = $this->getConcepts($articleUrl);
-            $this->storeConcepts($conceptsObject);
+            $this->storeConcepts($conceptsObject, $article->id);
 
-            $article->save();
+
             return back();
 
         } else{
@@ -60,14 +62,29 @@ class WatsonController extends Controller
     }
 
     // This is the sex right here. Only Creates a concept if it didn't exist before.
-    function storeConcepts($conceptsObject){
+    // Creates a new concept relationshsip for each concept.
+    function storeConcepts($conceptsObject, $articleId){
 
         foreach($conceptsObject->concepts as $concept){
+            $conceptRelevance = $concept->relevance;
             $conceptName = $concept->text;
             $newConcept = Concept::firstOrCreate(['name' => $conceptName]);
+            $this->storeConceptRelationship($newConcept, $articleId, $conceptRelevance );
+
         }
         return true;
 
+    }
+
+    // Creates a new Concept relationship given a Concept Object, an article id and the concept relevance
+    // Remember that concept relecence is NOT stored in the Concept Model
+    // So we need to explicitly pass it.
+    function storeConceptRelationship($conceptObject, $articleId, $conceptRelevance){
+        $newRelationship = new ConceptRelationship;
+        $newRelationship->article_id = $articleId;
+        $newRelationship->concept_id = $conceptObject->id;
+        $newRelationship->relevance = $conceptRelevance;
+        $newRelationship->save();
     }
 
     ////////////////////////////// WATSON API FUNCTIONS ////////////////////////////////////////////////
@@ -79,6 +96,7 @@ class WatsonController extends Controller
 
         $authorObject = $this->watsonCall($requestType, $url); //Returns the author object
         $authorName = $authorObject->authors->names[0]; // Extracts the first name in the string of authors.
+        // Error reading
         return $authorName;
     }
 
@@ -90,6 +108,9 @@ class WatsonController extends Controller
         return $titleName;
     }
 
+    // Given a url, asks Watson for concept data and returns an object with it.
+    // Not a simple string response like getTitle.
+    // We need to do something like $responseObject->name, $responseObject->relevence later.
     function getConcepts($url){
         $client = new Client([
             'base_uri' => 'https://watson-api-explorer.mybluemix.net/alchemy-api/calls/',

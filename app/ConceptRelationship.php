@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConceptRelationship extends Model
 {
+    protected $fillable = [
+        'concept_id', 'article_id','relevance'
+    ];
 
     // Describes the many to one relationship between
     // ConceptRelationships and Articles
