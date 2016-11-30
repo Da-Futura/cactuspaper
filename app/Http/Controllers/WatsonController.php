@@ -13,6 +13,26 @@ class WatsonController extends Controller
         return $author;
     }
 
+    // Function stores a new article given its corresponding user
+    public function store(Request $request){
+
+        //Checks if logged in, creates the article and redirects to
+        // last page
+        if(Auth::user()){
+            $article = new Article($request->all());
+            $user_id = Auth::id();
+            $article->user_id = $user_id;
+            $article->save();
+
+            return back();
+
+        } else{
+            // Otherwise, redirects to login page
+            return view('auth.login');
+        }
+
+    }
+
     function watsonCall($type, $url){
 
         // Initiate the guzzler client
