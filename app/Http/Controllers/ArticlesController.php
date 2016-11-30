@@ -42,11 +42,25 @@ class ArticlesController extends Controller
         $article->load('conceptRelationships');
         $concept_id = $article->conceptRelationships[0]['concept_id'];
         $relArticleIds = $this->getRelArticles($concept_id);
-        return Article::find($relArticleIds[1])->title;
+        $relatedArticles = Article::findMany($relArticleIds);
+
+        $relatedArticleTitles = $this->getRelArticleTitles($relatedArticles);
+
+        return $relatedArticleTitles;
 
         return view('articles.explore', compact('article'));
     }
 
+
+    // Returns an array of article names given an array of article objects
+    function getRelArticleTitles($articleObjectArray){
+        $articleTitles = [];
+        foreach($articleObjectArray as $relArticle){
+            $title = $relArticle->title;
+            array_push($articleTitles, $title);
+        }
+        return $articleTitles;
+    }
 
     // Returns an array or relative article IDs given the concept id
     function getRelArticles($conceptId){
