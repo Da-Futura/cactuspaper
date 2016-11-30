@@ -39,8 +39,4 @@ Route::post('/article/create', 'WatsonController@storeArticle');
 // It will display the group and all associated contents.
 Route::get('/group/{group}', 'GroupsController@show');
 
-
-// Testing Alchemy API
-Route::get('/watson/{article}', 'WatsonController@test');
-
-Route::get('/watson/concept/create', 'WatsonController@createConcept');
+Route::get('/explore/{article}', 'ArticlesController@explore');

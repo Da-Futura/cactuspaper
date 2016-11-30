@@ -41,7 +41,7 @@ class Article extends Model
     // Articles and KeySentiments.
     // Each Article can have many KeySentiments.
     // Corresponding one in KeySentiment model.
-    public function keySentiment(){
+    public function keySentiments(){
         return $this->hasMany(KeySentiment::class);
     }
 
@@ -49,7 +49,7 @@ class Article extends Model
     // Articles and ConceptRelationships.
     // Each Article can have many ConceptRelationships.
     // Corresponding one in ConceptRelationship model.
-    public function conceptRelationship(){
+    public function conceptRelationships(){
         return $this->hasMany(ConceptRelationship::class);
     }
 
