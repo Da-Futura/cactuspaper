@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Auth;
+use App\User;
+use App\Article;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use App\Article;
+
 
 class WatsonController extends Controller
 {
@@ -14,14 +18,29 @@ class WatsonController extends Controller
     }
 
     // Function stores a new article given its corresponding user
+    // Function stores a new article given its corresponding user
     public function store(Request $request){
+
+
+        // Does not allow for duplicate article urls.
+        // Just redirects to page without showing an error though.
+        $this->validate($request,
+        [
+            'url' => 'unique:articles'
+        ]);
+
 
         //Checks if logged in, creates the article and redirects to
         // last page
         if(Auth::user()){
             $article = new Article($request->all());
-            $user_id = Auth::id();
-            $article->user_id = $user_id;
+
+            $articleTitle = $this->getTitle($article->url); // Fetches title from Watson
+            $article->title = $articleTitle;
+
+            $userId = Auth::id();
+            $article->user_id = $userId;
+
             $article->save();
 
             return back();
@@ -76,6 +95,14 @@ class WatsonController extends Controller
         $authorName = $authorObject->authors->names[0]; // Extracts the first name in the string of authors.
         return $authorName;
     }
+
+    function getTitle($url){
+        $requestType = 'url/URLGetTitle';
+        $titleObject = $this->watsonCall($requestType, $url); //Returns the title object
+        $titleName = $titleObject->title; // Extracts the first name in the string of titles.
+        return $titleName;
+    }
+
 
     // Returns a json of the top ranked concepts for this Article
     function getRankedConcepts($url){

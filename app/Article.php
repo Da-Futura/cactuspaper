@@ -50,3 +50,4 @@ class Article extends Model
         $comment->user_id = $userId;
         return $this->comments()->save($comment);
     }
+}
