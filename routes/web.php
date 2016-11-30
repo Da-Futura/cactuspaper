@@ -33,7 +33,7 @@ Route::get('/article/{article}', 'ArticlesController@show');
 Route::post('/article/{article}/newComment', 'CommentsController@store');
 
 // Creates a new article tied to the current user
-Route::post('article/create', 'WatsonController@storeArticle');
+Route::post('/article/create', 'WatsonController@storeArticle');
 
 // Goes to a specific group page given its id.
 // It will display the group and all associated contents.
@@ -42,3 +42,5 @@ Route::get('/group/{group}', 'GroupsController@show');
 
 // Testing Alchemy API
 Route::get('/watson/{article}', 'WatsonController@test');
+
+Route::get('/watson/concept/create', 'WatsonController@createConcept');

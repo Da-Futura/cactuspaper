@@ -31,7 +31,7 @@ class WatsonController extends Controller
                         ]);
 
 
-        //Checks if logged in, creates the article and redirects to
+        //Checks if logged in, creates the article, stores the concepts and redirects to
         // last page
         if(Auth::user()){
             $article = new Article($request->all());
@@ -59,20 +59,16 @@ class WatsonController extends Controller
 
     }
 
+    // This is the sex right here. Only Creates a concept if it didn't exist before.
     function storeConcepts($conceptsObject){
+
         foreach($conceptsObject->concepts as $concept){
-            $newConcept = new Concept;
-            $newConcept->name = $concept->text;
-            // $newConcept->dbpedia = $concept->dbpedia;
-            // $newConcept->freebase = $concept->freebase;
-            // $newConcept->opencyc = $concept->opencyc;
-            // $newConcept->geo = $concept->geo;
-            // $newConcept->yago = $concept->yago;
-            $newConcept->save();
+            $conceptName = $concept->text;
+            $newConcept = Concept::firstOrCreate(['name' => $conceptName]);
         }
         return true;
-    }
 
+    }
 
     ////////////////////////////// WATSON API FUNCTIONS ////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////
