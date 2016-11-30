@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Auth;
 use App\User;
+use App\Concept;
 use App\Article;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
@@ -25,9 +26,9 @@ class WatsonController extends Controller
         // Does not allow for duplicate article urls.
         // Just redirects to page without showing an error though.
         $this->validate($request,
-        [
-            'url' => 'unique:articles'
-        ]);
+                        [
+                            'url' => 'unique:articles'
+                        ]);
 
 
         //Checks if logged in, creates the article and redirects to
@@ -45,12 +46,10 @@ class WatsonController extends Controller
             $userId = Auth::id();
             $article->user_id = $userId;
 
-            $keywordObject = $this->getKeywordsWithSentiment($articleUrl);
-            return $keywordObject->keywords;
+            $conceptsObject = $this->getConcepts($articleUrl);
+            $this->storeConcepts($conceptsObject);
+
             $article->save();
-
-
-
             return back();
 
         } else{
@@ -59,6 +58,76 @@ class WatsonController extends Controller
         }
 
     }
+
+    function storeConcepts($conceptsObject){
+        foreach($conceptsObject->concepts as $concept){
+            $newConcept = new Concept;
+            $newConcept->name = $concept->text;
+            // $newConcept->dbpedia = $concept->dbpedia;
+            // $newConcept->freebase = $concept->freebase;
+            // $newConcept->opencyc = $concept->opencyc;
+            // $newConcept->geo = $concept->geo;
+            // $newConcept->yago = $concept->yago;
+            $newConcept->save();
+        }
+        return true;
+    }
+
+
+    ////////////////////////////// WATSON API FUNCTIONS ////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Given a url, uses watsonCall to return the author as a string.
+    function getAuthor($url){
+        $requestType = 'url/URLGetAuthors';
+
+        $authorObject = $this->watsonCall($requestType, $url); //Returns the author object
+        $authorName = $authorObject->authors->names[0]; // Extracts the first name in the string of authors.
+        return $authorName;
+    }
+
+    // Given a url, uses watsonCall to return the title as a string.
+    function getTitle($url){
+        $requestType = 'url/URLGetTitle';
+        $titleObject = $this->watsonCall($requestType, $url); //Returns the title object
+        $titleName = $titleObject->title; // Extracts the first name in the string of titles.
+        return $titleName;
+    }
+
+    function getConcepts($url){
+        $client = new Client([
+            'base_uri' => 'https://watson-api-explorer.mybluemix.net/alchemy-api/calls/',
+            'timeout'  => 30.0,
+        ]);
+
+        $requestType = "url/URLGetRankedConcepts";
+
+        $apikey = getenv('ALCHEMY_API_KEY'); // The api key which is stored in .env for security
+        $outputMode="json"; // The format to return.
+        $maxRetrieve=15;
+
+        // This is where the call is made. The requestType is appended to the base_uri
+        // Then all the values are passed in as parameters.
+        $response = $client->request('GET', $requestType , [
+            'query' => ['apikey' => $apikey,
+                        'url' => $url,
+                        'outputMode' => $outputMode,
+                        'maxRetrieve' => $maxRetrieve
+            ]
+        ]);
+
+        $data = $response->getBody();
+        $responseObject = json_decode($data);
+
+        return $responseObject;
+
+    }
+
+
+
+
+
+
 
 
     // We can use getCombined Data to save on a api call, but it makes the code more complicated.
@@ -98,23 +167,10 @@ class WatsonController extends Controller
 
     }
 
-    function getAuthor($url){
-        $requestType = 'url/URLGetAuthors';
-
-        $authorObject = $this->watsonCall($requestType, $url); //Returns the author object
-        $authorName = $authorObject->authors->names[0]; // Extracts the first name in the string of authors.
-        return $authorName;
-    }
-
-    function getTitle($url){
-        $requestType = 'url/URLGetTitle';
-        $titleObject = $this->watsonCall($requestType, $url); //Returns the title object
-        $titleName = $titleObject->title; // Extracts the first name in the string of titles.
-        return $titleName;
-    }
 
 
-
+    // Given a url, it returns a json of all the keywords and their corresponding sentiments.
+    // The difference between this and watsonCall+getX is the extra query parameter 'sentiment'
     function getKeywordsWithSentiment ($url){
 
         // Initiate the guzzler client
@@ -133,9 +189,6 @@ class WatsonController extends Controller
         $outputMode="json"; // The format to return.
         $sentimentFlag = 1;
 
-
-
-
         // This is where the call is made. The requestType is appended to the base_uri
         // Then all the values are passed in as parameters.
         $response = $client->request('GET', $requestType , [
@@ -151,5 +204,6 @@ class WatsonController extends Controller
 
         return $responseObject;
     }
+
 
 }

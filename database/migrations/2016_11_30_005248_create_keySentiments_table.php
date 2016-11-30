@@ -30,6 +30,6 @@ class CreateKeySentimentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('KeySentiments');
+        Schema::dropIfExists('key_sentiments');
     }
 }

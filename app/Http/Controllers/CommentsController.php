@@ -27,6 +27,5 @@ class CommentsController extends Controller
             // Otherwise, redirects to login page
             return view('auth.login');
         }
-
     }
 }

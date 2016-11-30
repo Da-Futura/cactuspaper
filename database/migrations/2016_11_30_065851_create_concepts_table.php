@@ -16,11 +16,11 @@ class CreateConceptsTable extends Migration
         Schema::create('concepts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('dbpedia');
-            $table->string('freebase');
-            $table->string('opencyc');
-            $table->string('geo');
-            $table->string('yago');
+            $table->string('dbpedia')->nullable();
+            $table->string('freebase')->nullable();
+            $table->string('opencyc')->nullable();
+            $table->string('geo')->nullable();
+            $table->string('yago')->nullable();
             $table->timestamps();
         });
     }
