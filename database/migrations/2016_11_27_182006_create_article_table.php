@@ -17,6 +17,7 @@ class CreateArticleTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('url')->unique();
+            $table->string('author');
             $table->string('summary');
             $table->integer('user_id')->unsigned();
             $table->integer('group_id')->unsigned();

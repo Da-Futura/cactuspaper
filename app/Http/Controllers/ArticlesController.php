@@ -33,33 +33,4 @@ class ArticlesController extends Controller
         return view('articles.show', compact('article'));
     }
 
-    // Function stores a new article given its corresponding user
-    public function store(Request $request){
-
-
-        // Does not allow for duplicate article urls.
-        // Just redirects to page without showing an error though.
-        $this->validate($request,
-        [
-            'url' => 'unique:articles'
-        ]);
-
-
-        //Checks if logged in, creates the article and redirects to
-        // last page
-        if(Auth::user()){
-            $article = new Article($request->all());
-            $userId = Auth::id();
-            $article->user_id = $userId;
-            $article->save();
-
-            return back();
-
-        } else{
-            // Otherwise, redirects to login page
-            return view('auth.login');
-        }
-
-    }
-
 }

@@ -19,7 +19,7 @@ class WatsonController extends Controller
 
     // Function stores a new article given its corresponding user
     // Function stores a new article given its corresponding user
-    public function store(Request $request){
+    public function storeArticle(Request $request){
 
 
         // Does not allow for duplicate article urls.
@@ -34,9 +34,13 @@ class WatsonController extends Controller
         // last page
         if(Auth::user()){
             $article = new Article($request->all());
+            $articleUrl = $article->url;
 
-            $articleTitle = $this->getTitle($article->url); // Fetches title from Watson
+            $articleTitle = $this->getTitle($articleUrl); // Fetches title from Watson
             $article->title = $articleTitle;
+
+            $articleAuthor = $this->getAuthor($articleUrl);
+            $article->author = $articleAuthor;
 
             $userId = Auth::id();
             $article->user_id = $userId;
@@ -51,6 +55,8 @@ class WatsonController extends Controller
         }
 
     }
+
+
 
     function watsonCall($type, $url){
 

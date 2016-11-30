@@ -13,7 +13,7 @@ class CreateKeySentimentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('KeySentiments', function (Blueprint $table) {
+        Schema::create('key_sentiments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('keyword_id')->unsigned()->index();
             $table->integer('article_id')->unsigned()->index();
