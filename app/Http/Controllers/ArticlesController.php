@@ -36,22 +36,43 @@ class ArticlesController extends Controller
     }
 
 
-    // Finds the Article associated with the id
-    // Calls the articles/explore view
+    // Given an article, it returns
     public function explore(Article $article){
         $article->load('conceptRelationships');
-        $concept_id = $article->conceptRelationships[0]['concept_id'];
 
-        return $relArticles = $this->getRelArticles($concept_id);
+        $conceptIdArray = $this->getConceptIdArray($article);
 
-        $relatedArticleTitles = $this->getRelArticleTitles($relatedArticles);
-        return response()->json(["concept name" =>["titles" => $relatedArticleTitles]]);
+        $relArticleArray = $this->getRelArticleArray($conceptIdArray);
+        return response()->json($relArticleArray);
 
-        return $relatedArticleTitles;
+        // $relatedArticleTitles = $this->getRelArticleTitles($relatedArticles);
+        // return response()->json(["concept name" =>["titles" => $relatedArticleTitles]]);
+        // return $relatedArticleTitles;
 
         return view('articles.explore', compact('article'));
     }
 
+
+
+
+    // Given an array of integer concept_ids, returns an assoc array of all their related articles
+    function getRelArticleArray($conceptIdArray){
+        $relArticleArray = [];
+        foreach($conceptIdArray as $conceptId){
+            $relArticle = $this->getRelArticles($conceptId);
+            array_push($relArticleArray, $relArticle);
+        }
+        return $relArticleArray;
+    }
+
+
+    function getConceptIdArray(Article $article){
+        $conceptIdArray = [];
+        foreach($article->conceptRelationships as $relationship){
+            array_push($conceptIdArray, $relationship['concept_id']);
+        }
+        return $conceptIdArray;
+    }
 
     // Returns an array of article names given an array of article objects
     function getRelArticleTitles($articleObjectArray){
@@ -65,35 +86,36 @@ class ArticlesController extends Controller
 
 
 
-    // Returns an array or relative Articles given the concept id
-    // Is of the form:
-    /*
-      {"Mars":{"articles":[{"0.95":{"id":10,"title":"A sightseer\u2019s guide to Mars","url":"http:\/\/www.bbc.com\/future\/story\/20161104-a-sightseers-guide-to-mars","author":"Zaria Gorvett","summary":"mars","user_id":1,"group_id":1,"created_at":"2016-11-30 14:25:33","updated_at":"2016-11-30 14:25:33"}},{"0.98":{"id":11,"title":"Mars probe returns first pictures - BBC News","url":"http:\/\/www.bbc.com\/news\/science-environment-38147682","author":"BBC News","summary":"More Mars","user_id":1,"group_id":1,"created_at":"2016-11-30 17:11:36","updated_at":"2016-11-30 17:11:36"}}]}} */
 
+    // Returns an array or relative Articles given the concept id
     function getRelArticles($conceptId){
         $concept = Concept::find($conceptId);
         $relationships = $concept->conceptRelationships;
 
         $relArticleArray = []; // returns an array of related article IDs
-        $relRelevanceArray = [];
+        // $relRelevanceArray = [];
         foreach($relationships as $relationship){
             array_push($relArticleArray,  $relationship["article_id"]);
-            array_push($relRelevanceArray, $relationship->relevance);
+            // $relevance = floatval($relationship->relevance);
+            // array_push($relRelevanceArray, $relevance);
         }
 
         $relatedArticles = Article::findMany($relArticleArray);
 
-        $articleWithSentiment = array();
+        // Ignoring relevance for now
+        /*
+        $articleWithRelevance = array();
 
         $arrayLength = count($relRelevanceArray);
-
         for($i = 0; $i <$arrayLength; $i++){
-            $newPair = [$relRelevanceArray[$i] => $relatedArticles[$i]];
-            array_push($articleWithSentiment, $newPair);
+            $newA = [$relatedArticles[$i]];
+            $newPair = ["relevance" => $relRelevanceArray[$i]];
+            array_push($articleWithRelevance, $newPair);
         }
+        */
 
         $conceptName = $concept->name;
-        return [$conceptName => ["articles" => $articleWithSentiment]];
+        return [$conceptName => ["articles" => $relatedArticles]];
 
     }
 
