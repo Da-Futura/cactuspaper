@@ -43,13 +43,13 @@ class ArticlesController extends Controller
         $conceptIdArray = $this->getConceptIdArray($article);
 
         $relArticleArray = $this->getRelArticleArray($conceptIdArray);
-        return response()->json($relArticleArray);
+        $jsonResponse =  json_encode($relArticleArray);
 
         // $relatedArticleTitles = $this->getRelArticleTitles($relatedArticles);
         // return response()->json(["concept name" =>["titles" => $relatedArticleTitles]]);
         // return $relatedArticleTitles;
-
-        return view('articles.explore', compact('article'));
+        $responseArray = ["article" => $article, "json" => $jsonResponse];
+        return view('articles.explore')->with($responseArray);
     }
 
 

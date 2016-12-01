@@ -121,7 +121,7 @@ class WatsonController extends Controller
 
         $apikey = getenv('ALCHEMY_API_KEY'); // The api key which is stored in .env for security
         $outputMode="json"; // The format to return.
-        $maxRetrieve=15;
+        $maxRetrieve=10;
 
         // This is where the call is made. The requestType is appended to the base_uri
         // Then all the values are passed in as parameters.
