@@ -1,1 +1,1 @@
-d3.select("body").style("background-color", "white");
+d3.select("body").style("background-color", "tomato");
