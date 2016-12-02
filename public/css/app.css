@@ -8560,6 +8560,10 @@ body {
   background-color: #FFFFF7;
 }
 
+header {
+  margin-top: -1.5em;
+}
+
 .registerRow {
   margin-top: 5%;
 }
@@ -8578,6 +8582,14 @@ h1 {
   font-style: normal;
   font-weight: 700;
   font-size: 6em;
+  text-align: center;
+}
+
+.byline {
+  font-family: "p22-stanyan", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2em;
   text-align: center;
 }
 

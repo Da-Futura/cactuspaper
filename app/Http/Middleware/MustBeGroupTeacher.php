@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class MustBeAdministrator
+class MustBeGroupTeacher
 {
     /**
      * Handle an incoming request.
@@ -14,19 +14,13 @@ class MustBeAdministrator
      * @return mixed
      */
 
-    // Tests if the user is an admin
-    // Continues if yes
-    // Throws an abort if no (later.);
+    // Not sure how to get the group id into the request to test
     public function handle($request, Closure $next)
     {
-        $user = $request->user();
-        if($user->user_type == "admin"){
+        if($userMembershipType === "teacher"){
             return $next($request);
-        }
-        else{
+        }else{
             abort(404, 'damn');
         }
-
     }
-
 }

@@ -8,17 +8,18 @@ use App\Article;
 use App\ConceptRelationship;
 use App\Concept;
 use Auth;
-use App\User;
+use Anpp\User;
 
 
 class ArticlesController extends Controller
 {
 
-    // Adds middleware preventing anyone except teachers from
-    // Calling the store method to create articles
+    // Adds middleware preventing anyone not logged in from accessing
+    // Redirects to login
+
     public function __construct()
     {
-        //        $this->middleware('teacher', ['only' =>'store']);
+        $this->middleware('auth');
     }
 
     // Queries the database for all articles and then passes an array of that

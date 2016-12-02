@@ -8,8 +8,17 @@ use App\Comment;
 use App\Article;
 use App\User;
 
+
 class CommentsController extends Controller
 {
+
+    // Adds middleware preventing anyone not logged in from accessing
+    // Redirects to login
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // Function stores a new note given its corresponding article
     public function store(Article $article, Request $request){
 

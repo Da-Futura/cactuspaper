@@ -12,8 +12,17 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
 
+
 class WatsonController extends Controller
 {
+
+    // Adds middleware preventing anyone not logged in from accessing
+    // Redirects to login
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function test(Article $article){
         $author = $this->getAuthor($article->url);
         return $author;

@@ -16,9 +16,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-
 Route::get('/home', 'HomeController@index');
 
 // Goes to a page which displays a list of all articles.
@@ -40,3 +37,7 @@ Route::post('/article/create', 'WatsonController@storeArticle');
 Route::get('/group/{group}', 'GroupsController@show');
 
 Route::get('/explore/{article}', 'ArticlesController@explore');
+
+
+// Testing Authentication
+Route::get('/dashboard', 'HomeController@index');
