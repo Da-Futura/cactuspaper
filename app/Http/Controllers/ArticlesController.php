@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Article;
+use App\Group;
 use App\ConceptRelationship;
 use App\Concept;
 use Auth;
@@ -16,7 +17,6 @@ class ArticlesController extends Controller
 
     // Adds middleware preventing anyone not logged in from accessing
     // Redirects to login
-
     public function __construct()
     {
         $this->middleware('auth');

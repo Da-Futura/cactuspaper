@@ -1,4 +1,4 @@
-@extends('layout');
+@extends('layout')
 
 @section('content')
     <h1>{{$group->name}}</h1>
