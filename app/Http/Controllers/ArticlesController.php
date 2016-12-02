@@ -46,90 +46,31 @@ class ArticlesController extends Controller
     public function explore(Article $article){
         $article->load('conceptRelationships');
 
-        $conceptIdArray = $this->getConceptIdArray($article);
-        $relArticleArray = $this->getRelArticleArray($conceptIdArray);
-        return $relArticleArray;
-        $responseArray = ["article" => $article, "relativeArticles" => $relArticleArray];
-        return view('articles.explore')->with($responseArray);
+        $rootConceptRelationships = $article->conceptRelationships;
+
+        $rootConcepts = [];
+
+        foreach($rootConceptRelationships as $rootConceptRelationship){
+            $rootConcept = $rootConceptRelationship->concept;
+            array_push($rootConcepts, $rootConcept);
+        }
+
+        $relatedConceptRelationships = [];
+        foreach($rootConcepts as $rootConcept){
+            $relatedConceptRelationship = $rootConcept->conceptRelationships;
+            array_push($relatedConceptRelationships, $relatedConceptRelationship);
+        }
+
+        //        return $relatedConceptRelationships;
+        //        return $relatedConceptRelationships[14][0]->article->id;
+
+        $responseArray = ["article" => $article, "conceptRelationshipArray" => $relatedConceptRelationships];
+        return view('articles.explore', $responseArray);
     }
 
 
 
 
-    // Given an array of integer concept_ids, returns an assoc array of all their related articles
-    function getRelArticleArray($conceptIdArray){
-        $relArticleArray = [];
-        foreach($conceptIdArray as $conceptId){
-            $relArticle = $this->getRelArticles($conceptId);
-            $relArticleId = $relArticle->id;
-            array_push($relArticleArray, $relArticleId);
-        }
-        return $relArticleArray;
-    }
 
-
-    function getConceptIdArray(Article $article){
-        $conceptIdArray = [];
-        foreach($article->conceptRelationships as $relationship){
-            array_push($conceptIdArray, $relationship['concept_id']);
-        }
-        return $conceptIdArray;
-    }
-
-    // Returns an array of article names given an array of article objects
-    function getRelArticleTitles($articleObjectArray){
-        $articleTitles = [];
-        foreach($articleObjectArray as $relArticle){
-            $title = $relArticle->title;
-            array_push($articleTitles, $title);
-        }
-        return $articleTitles;
-    }
-
-    // Returns an array of article ids given an array of article objects
-    function getRelArticleIds($articleObjectArray){
-        $articleIds = [];
-        foreach($articleObjectArray as $relArticle){
-            $articleId = $relArticle->id;
-            array_push($articleIds, $articleId);
-        }
-        return $articleIds;
-    }
-
-
-
-
-    // Returns an array or relative Articles given the concept id
-    function getRelArticles($conceptId){
-        $concept = Concept::find($conceptId);
-        $relationships = $concept->conceptRelationships;
-
-        $relArticleArray = []; // returns an array of related article IDs
-        // $relRelevanceArray = [];
-        foreach($relationships as $relationship){
-            array_push($relArticleArray,  $relationship["article_id"]);
-            // $relevance = floatval($relationship->relevance);
-            // array_push($relRelevanceArray, $relevance);
-        }
-
-        $relatedArticles = Article::findMany($relArticleArray);
-
-        // Ignoring relevance for now
-        /*
-        $articleWithRelevance = array();
-
-        $arrayLength = count($relRelevanceArray);
-        for($i = 0; $i <$arrayLength; $i++){
-            $newA = [$relatedArticles[$i]];
-            $newPair = ["relevance" => $relRelevanceArray[$i]];
-            array_push($articleWithRelevance, $newPair);
-        }
-        */
-
-        $conceptName = $concept->name;
-
-        return [$conceptName => ["articles" => $relatedArticles]];
-
-    }
 
 }
