@@ -29,7 +29,8 @@ class GroupsController extends Controller
         $group->load('articles');
 
         if($this->isGroupMember($user,$group)){
-            return view('groups.show', compact('group'));
+            $responseArray = ["user" => $user, "group" => $group];
+            return view('groups.show', $responseArray);
         } else{
             return view('groups.showGuest', compact('group'));
         }
