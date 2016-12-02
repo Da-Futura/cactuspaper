@@ -9,3 +9,23 @@
 
 //Materialize
     @import "node_modules/materialize-css/sass/materialize.scss";
+
+    body{
+        background-color: #FFFFE7;
+    }
+
+
+    // Register Styles
+
+    .registerRow{
+        margin-top: 5%;
+    }
+
+    .regFormCol{
+        border: 2px solid #444;
+        padding: 1em;
+    }
+
+    form{
+        padding:0em 2em 0em 2em;
+    }
