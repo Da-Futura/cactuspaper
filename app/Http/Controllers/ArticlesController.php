@@ -31,9 +31,14 @@ class ArticlesController extends Controller
 
     // Finds the Article associated with the id
     // Calls the articles/show view
-    public function show(Article $article){
+    public function show(Article $article, Request $request){
+        $user = $request->user();
         $article->load('comments');
-        return view('articles.show', compact('article'));
+        $responseArray = [
+            "user" => $user,
+            "article" => $article
+        ];
+        return view('articles.show', $responseArray);
     }
 
 
@@ -42,14 +47,9 @@ class ArticlesController extends Controller
         $article->load('conceptRelationships');
 
         $conceptIdArray = $this->getConceptIdArray($article);
-
         $relArticleArray = $this->getRelArticleArray($conceptIdArray);
-        $jsonResponse =  json_encode($relArticleArray);
-
-        // $relatedArticleTitles = $this->getRelArticleTitles($relatedArticles);
-        // return response()->json(["concept name" =>["titles" => $relatedArticleTitles]]);
-        // return $relatedArticleTitles;
-        $responseArray = ["article" => $article, "json" => $jsonResponse];
+        return $relArticleArray;
+        $responseArray = ["article" => $article, "relativeArticles" => $relArticleArray];
         return view('articles.explore')->with($responseArray);
     }
 
@@ -61,7 +61,8 @@ class ArticlesController extends Controller
         $relArticleArray = [];
         foreach($conceptIdArray as $conceptId){
             $relArticle = $this->getRelArticles($conceptId);
-            array_push($relArticleArray, $relArticle);
+            $relArticleId = $relArticle->id;
+            array_push($relArticleArray, $relArticleId);
         }
         return $relArticleArray;
     }
@@ -83,6 +84,16 @@ class ArticlesController extends Controller
             array_push($articleTitles, $title);
         }
         return $articleTitles;
+    }
+
+    // Returns an array of article ids given an array of article objects
+    function getRelArticleIds($articleObjectArray){
+        $articleIds = [];
+        foreach($articleObjectArray as $relArticle){
+            $articleId = $relArticle->id;
+            array_push($articleIds, $articleId);
+        }
+        return $articleIds;
     }
 
 
@@ -116,6 +127,7 @@ class ArticlesController extends Controller
         */
 
         $conceptName = $concept->name;
+
         return [$conceptName => ["articles" => $relatedArticles]];
 
     }
