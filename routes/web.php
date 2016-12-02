@@ -32,6 +32,10 @@ Route::post('/article/create', 'WatsonController@storeArticle');
 // It will display the group and all associated contents.
 Route::get('/group/{group}', 'GroupsController@show');
 
+// Creates a new membership between the signed in user and the group id passed.
+Route::post('/group/new', 'GroupsController@store');
+
+// Soon.
 Route::get('/explore/{article}', 'ArticlesController@explore');
 
 

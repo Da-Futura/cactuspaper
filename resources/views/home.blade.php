@@ -15,7 +15,7 @@
             </div>
 
             <div class="col s12 m6 l5">
-                <form class="card" role="form" method="POST" action="{{ url('/login') }}" >
+                <form class="card" role="form" method="POST" action="{{ url('/group/new') }}" >
 
                     {{ csrf_field() }}
 
@@ -24,8 +24,8 @@
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="group" type="text" name="group" class="validate" required>
-                                <label for="group">Secret Key</label>
+                                <input id="group_id" type="text" name="group_id" class="validate" required>
+                                <label for="group_id">Secret Key</label>
                             </div>
                         </div>
 
