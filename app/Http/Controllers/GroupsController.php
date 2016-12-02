@@ -53,6 +53,22 @@ class GroupsController extends Controller
         return back();
     }
 
+    public function storeAll(Request $request){
+        $user = $request->user();
+        $groups = Group::all();
+
+        foreach($groups as $group){
+            if(!($this->isGroupMember($user, $group))){ // Creates new membership if it doesn't exist.
+                $membership = new Membership();
+                $membership->user_id = $user->id;
+                $membership->group_id = $group->id;
+                $membership->user_role = 1;
+                $membership->save();
+            }
+        }
+        return back();
+    }
+
 
     //This is how we check if a given user is a member of the group
     function isGroupMember($user, $group){

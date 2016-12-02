@@ -15,7 +15,7 @@
             </div>
 
             <div class="col s12 m6 l5">
-                <form class="card" role="form" method="POST" action="{{ url('/group/new') }}" >
+                <form class="card" role="form" method="POST" action="{{ url('/group/new/all') }}" >
 
                     {{ csrf_field() }}
 

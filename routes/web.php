@@ -12,6 +12,7 @@
 */
 
 Route::get('/','HomeController@index');
+Route::get('/home','HomeController@index');
 Auth::routes();
 
 // Goes to a page which displays a list of all articles.
@@ -34,6 +35,11 @@ Route::get('/group/{group}', 'GroupsController@show');
 
 // Creates a new membership between the signed in user and the group id passed.
 Route::post('/group/new', 'GroupsController@store');
+
+
+// Creates a new membership between the signed in user and all avaliable groups
+Route::post('/group/new/all', 'GroupsController@storeAll');
+
 
 // Soon.
 Route::get('/explore/{article}', 'ArticlesController@explore');
