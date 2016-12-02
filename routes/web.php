@@ -11,8 +11,7 @@
 |
 */
 
-Route::get('/','HomeController@index' );
-
+Route::get('/','HomeController@index');
 Auth::routes();
 
 // Goes to a page which displays a list of all articles.

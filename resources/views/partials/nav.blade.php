@@ -1,8 +1,8 @@
 <nav>
     <div class="nav-wrapper">
-        <a href="#!" class="brand-logo cactusLogo">Cactuspaper</a>
+        <a href="#!" class="cactusLogo">Cactuspaper</a>
         <ul class="right hide-on-med-and-down">
-            <li>{{$user->name}}</li>
+            <li>Hello {{$user->name}}</li>
             <li>
                 <a href="{{ url('/logout') }}"
                    onclick="event.preventDefault();
