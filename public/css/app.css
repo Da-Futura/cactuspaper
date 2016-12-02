@@ -8555,10 +8555,6 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   }
 }
 
-body {
-  background-color: #FFFFF7;
-}
-
 header {
   margin-top: -1.5em;
 }
@@ -8629,6 +8625,34 @@ main {
 
 .collection-item {
   font-size: 1.25em;
+}
+
+.collection-item {
+  color: #222 !important;
+}
+
+.articleTitle a {
+  font-size: .5em;
+  color: #ec407a !important;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.articleTitle {
+  display: block;
+  margin-bottom: 0em;
+}
+
+.articleAuthor {
+  font-size: 1em;
+}
+
+.title {
+  color: #888 !important;
+}
+
+.commentCollectionHeader {
+  font-size: 1.5em;
 }
 
 /*# sourceMappingURL=app.css.map */

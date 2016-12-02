@@ -57,8 +57,10 @@
                 </div>
             </div>
             <div class="col s12 m4 l4 regCarlaCol valign">
-                <img  alt="Carla The Cactus" src="{{asset('img/cutiecactus.png')}}" width="400px"/>
-                <a href="{{url('explore',[$article->id])}}">Explore</a>
+
+                <a href="{{url('explore',[$article->id])}}">
+                    <img  alt="Carla The Cactus" src="{{asset('img/cutiecactus.png')}}" width="400px"/>
+                </a>
             </div>
 
         </div>

@@ -11,7 +11,7 @@
     @import "node_modules/materialize-css/sass/materialize.scss";
 
     body{
-        background-color: #FFFFF7;
+//        background-color: #FFFFF7;
     }
 
 
@@ -92,4 +92,32 @@
 
 .collection-item{
     font-size: 1.25em;
+}
+
+.collection-item {
+    color:#222 !important;
+}
+
+.articleTitle a{
+    font-size: .5em;
+    color: color("pink", "lighten-1") !important;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.articleTitle{
+    display:block;
+    margin-bottom:0em;
+}
+
+.articleAuthor{
+    font-size: 1em;
+}
+
+.title{
+    color: #888 !important;
+}
+
+.commentCollectionHeader{
+    font-size: 1.5em;
 }
