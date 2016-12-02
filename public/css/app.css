@@ -8576,9 +8576,13 @@ form {
 h1 {
   font-family: "p22-stanyan",serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 6em;
   text-align: center;
+}
+
+.registerSpan {
+  margin-left: 2em;
 }
 
 /*# sourceMappingURL=app.css.map */

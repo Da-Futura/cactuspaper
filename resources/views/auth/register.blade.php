@@ -18,28 +18,28 @@
                         <h3>Register</h3>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="name" type="text" name="name" class="validate">
+                                <input id="name" type="text" name="name" class="validate" required>
                                 <label for="name">Name</label>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="email" type="email" name="email" class="validate">
+                                <input id="email" type="email" name="email" class="validate" required>
                                 <label for="email">Email</label>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="password" type="password" class="validate" name="password">
+                                <input id="password" type="password" class="validate" name="password" required>
                                 <label for="password">Password</label>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="password-confirm" type="password" name="password_confirmation" class="validate">
+                                <input id="password-confirm" type="password" name="password_confirmation" class="validate" required>
                                 <label for="password-confirm">Confirm Password</label>
                             </div>
                         </div>
