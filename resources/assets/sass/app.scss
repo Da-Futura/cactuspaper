@@ -1,8 +1,8 @@
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+// @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 // Variables
-@import "variables";
+// @import "variables";
 
 // Bootstrap
     // @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
@@ -65,3 +65,20 @@
     main {
         flex: 1 0 auto;
     }
+
+
+
+    // Nav Styles
+.nav-wrapper{
+    width: 60%;
+    margin:auto;
+    }
+
+
+.cactusLogo{
+    font-family: "p22-stanyan", serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2em;
+    text-align: center;
+}

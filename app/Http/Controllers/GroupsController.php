@@ -20,8 +20,8 @@ class GroupsController extends Controller
     }
 
 
-    // Finds the Group associated with the id
-    // Calls the group/show view
+    // If the user is a member of the group, show the group regularly. group.show
+    // Else, redirect to group.showGuest which doesn't give them access.
     public function show(Group $group, Request $request){
 
         $user = $request->user();

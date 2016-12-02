@@ -9,12 +9,4 @@
         <li>{{$article->title}}</li>
     @endforeach
     </ul>
-
-    <h2>Group Members are</h2>
-    <ul>
-        @foreach($group->memberships as $membership)
-            <li>{{$membership->user->name}}  {{$membership->user_role}}</li>
-        @endforeach
-    </ul>
-
 @stop

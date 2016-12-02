@@ -1,4 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 .materialize-red {
   background-color: #e51c23 !important;
 }
@@ -2617,7 +2616,7 @@ a {
 blockquote {
   margin: 20px 0;
   padding-left: 1.5rem;
-  border-left: 5px solid #fff9c4;
+  border-left: 5px solid #ffe0b2;
 }
 
 i {
@@ -2677,7 +2676,7 @@ video.responsive-video {
 }
 
 .pagination li.active {
-  background-color: #fff9c4;
+  background-color: #ffe0b2;
 }
 
 .pagination li.disabled a {
@@ -2864,7 +2863,7 @@ ul.staggered-list li {
 footer.page-footer {
   margin-top: 20px;
   padding-top: 20px;
-  background-color: #fff9c4;
+  background-color: #ffe0b2;
 }
 
 footer.page-footer .footer-copyright {
@@ -4007,7 +4006,7 @@ input[type=range] + .thumb {
 
 nav {
   color: #222;
-  background-color: #fff9c4;
+  background-color: #ffe0b2;
   width: 100%;
   height: 56px;
   line-height: 56px;
@@ -4791,7 +4790,7 @@ small {
 }
 
 .tabs .tab a {
-  color: rgba(255, 249, 196, 0.7);
+  color: rgba(255, 224, 178, 0.7);
   display: block;
   width: 100%;
   height: 100%;
@@ -4805,12 +4804,12 @@ small {
 
 .tabs .tab a:hover, .tabs .tab a.active {
   background-color: transparent;
-  color: #fff9c4;
+  color: #ffe0b2;
 }
 
 .tabs .tab.disabled a,
 .tabs .tab.disabled a:hover {
-  color: rgba(255, 249, 196, 0.7);
+  color: rgba(255, 224, 178, 0.7);
   cursor: default;
 }
 
@@ -5711,7 +5710,7 @@ input[type=search],
 textarea.materialize-textarea {
   background-color: transparent;
   border: none;
-  border-bottom: #ccd0d2;
+  border-bottom: 1px solid #616161;
   border-radius: 0;
   outline: none;
   height: 3rem;
@@ -6585,7 +6584,7 @@ select {
   cursor: pointer;
   background-color: transparent;
   border: none;
-  border-bottom: #ccd0d2;
+  border-bottom: 1px solid #616161;
   outline: none;
   height: 3rem;
   line-height: 3rem;
@@ -7099,7 +7098,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 .side-nav .collapsible-body > ul:not(.collapsible) > li.active,
 .side-nav.fixed .collapsible-body > ul:not(.collapsible) > li.active {
-  background-color: #fff9c4;
+  background-color: #ffe0b2;
 }
 
 .side-nav .collapsible-body > ul:not(.collapsible) > li.active a,
@@ -8609,6 +8608,19 @@ body {
 main {
   -webkit-box-flex: 1;
   flex: 1 0 auto;
+}
+
+.nav-wrapper {
+  width: 60%;
+  margin: auto;
+}
+
+.cactusLogo {
+  font-family: "p22-stanyan", serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2em;
+  text-align: center;
 }
 
 /*# sourceMappingURL=app.css.map */
