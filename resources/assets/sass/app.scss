@@ -11,7 +11,7 @@
     @import "node_modules/materialize-css/sass/materialize.scss";
 
     body{
-        background-color: #FFFFE7;
+        background-color: #FFFFF7;
     }
 
 
@@ -28,4 +28,12 @@
 
     form{
         padding:0em 2em 0em 2em;
+    }
+
+    h1{
+        font-family: "p22-stanyan",serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 6em;
+        text-align:center;
     }

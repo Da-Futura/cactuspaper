@@ -4,9 +4,9 @@
 
     @include('partials.authNav')
     <div class="container">
-        <div class="row registerRow">
-            <div class="col s12 m5 regCarlaCol">
-                <img alt="Carla The Cactus" src="{{asset('img/cutiecactus.png')}}" width="400px"/>
+        <div class="row registerRow valign-wrapper">
+            <div class="col s12 m5 regCarlaCol valign">
+                <img  alt="Carla The Cactus" src="{{asset('img/cutiecactus.png')}}" width="400px"/>
             </div>
 
             <div class="col s12 m6 offset-m1">
