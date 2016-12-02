@@ -1,13 +1,8 @@
 @extends('layout')
 @section('content')
+    @include('partials.nav')
     <h1>{{$article->title}}</h1>
 
-    <!-- @foreach($conceptRelationshipArray as $x)
-         @foreach($x as $y)
-         {{$x[0]->concept->name}}
-         {{$y->article->group->name}}
-         @endforeach
-         @endforeach -->
 
     <table>
         <thead>
@@ -23,12 +18,15 @@
 
 
                 @foreach($a as $b)
-                    @if($b->article->id != $article->id)
+                    @if(!(in_array($b->article->id, $duplicateArray)))
                     <tr>
                         <td>{{$a[0]->concept->name}}</td>
                         <td>{{$b->article->title}}</td>
                         <td>{{$b->article->group->name}}</td>
                     </tr>
+                    @php
+                    array_push($duplicateArray,$b->article->id);
+                    @endphp
                     @endif
                 @endforeach
 

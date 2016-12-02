@@ -43,7 +43,7 @@ class ArticlesController extends Controller
 
 
     // Given an article, it returns
-    public function explore(Article $article){
+    public function explore(Article $article, Request $request){
         $article->load('conceptRelationships');
 
         $rootConceptRelationships = $article->conceptRelationships;
@@ -63,8 +63,8 @@ class ArticlesController extends Controller
 
         //        return $relatedConceptRelationships;
         //        return $relatedConceptRelationships[14][0]->article->id;
-
-        $responseArray = ["article" => $article, "conceptRelationshipArray" => $relatedConceptRelationships];
+        $duplicateArray = [$article->id];
+        $responseArray = ["article" => $article, "conceptRelationshipArray" => $relatedConceptRelationships, "user" => $request->user(), "duplicateArray" => $duplicateArray];
         return view('articles.explore', $responseArray);
     }
 
