@@ -1,40 +1,51 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img width="150"src="https://laravel.com/laravel.png"></a></p>
+## Installation Instructions.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+1) Setup a mysql server with a database named, cactuspaper.
+2) Pull in php dependencies using composer.
 
-## About Laravel
+>> php composer.phar install
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+3) Pull in js dependencies using npm
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+>> nom install
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
 
-## Learning Laravel
+4) Compile sass etc using gulp
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+>> gulp
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+5) Edit .env to suit either using mine or from the example provided.
+   The ALCHMEY API Key is necessary.
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+5) Serve using
 
-## Security Vulnerabilities
+>> php artisan server
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+6) Troubleshoot enivitable troubles.
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+7) Since I didn't create an admin panel yet, you'll need to manually create Groups to join.
+This can be done through phpmyadmin etc, but it may be more interesting/convenient to use tinker
+
+>> php artisan tinker
+>> $group = new App\Group
+>> $group->name = "My Group"
+>> $group->save()
+>> App\Group::all()
+
+By default, all users have the student relation to groups, but they can be manually changed
+to teachers via tinker.
+eg:
+>> App\Membership::all()
+>> $membership = App\membership::find(1)
+>> $membership->user_role = "teacher"
+
+Another point of interest may be:
+>> App/Concept::all()
+after some articles have been inserted.
+
+
+I'd like to try to sell subscriptions to schools and sutff soon, so I'm not making it avaliable
+for further development outside the scope of the assignment.
+http://www.binpress.com/license/edit/h/14dd226435c8730ae760097c2d0c86d5882bdbef

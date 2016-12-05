@@ -77,7 +77,7 @@ class GroupsController extends Controller
 
 
     // This is how we check if a given user is a member of the group
-n    // Duplicated function in CommentsController because I didn't figure out the
+    // Duplicated function in CommentsController because I didn't figure out the
     // external classes thing properly.
     // Additional validation can be added by adding the (&& (user_role == "teacher") ) condition
     function isGroupMember($user, $group){
