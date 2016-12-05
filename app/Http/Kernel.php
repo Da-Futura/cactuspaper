@@ -53,6 +53,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         // adds a link to the MustBeAnministrator and MustBeTeacher middleware
+        // They exist, but we didnt use them because we didnt really do much with user_roles yet.
         'admin' => \App\Http\Middleware\MustBeAdministrator::class,
         'teacher' => \App\Http\Middleware\MustBeTeacher::class,
 

@@ -23,12 +23,7 @@ class WatsonController extends Controller
         $this->middleware('auth');
     }
 
-    public function test(Article $article){
-        $author = $this->getAuthor($article->url);
-        return $author;
-    }
 
-    // Function stores a new article given its corresponding user
     // Function stores a new article given its corresponding user
     public function storeArticle(Request $request){
 
@@ -50,10 +45,12 @@ class WatsonController extends Controller
             $articleTitle = $this->getTitle($articleUrl); // Fetches title from Watson
             $article->title = $articleTitle;
 
+
             $articleAuthor = $this->getAuthor($articleUrl);
             $article->author = $articleAuthor;
 
-            $userId = Auth::id();
+
+            $userId = Auth::id();  // alternately $request->user();
             $article->user_id = $userId;
             $article->save();
 
@@ -77,7 +74,7 @@ class WatsonController extends Controller
         foreach($conceptsObject->concepts as $concept){
             $conceptRelevance = $concept->relevance;
             $conceptName = $concept->text;
-            $newConcept = Concept::firstOrCreate(['name' => $conceptName]);
+            $newConcept = Concept::firstOrCreate(['name' => $conceptName]);  // Searches database for concept by id, if found, returns the object, else, creates one.
             $this->storeConceptRelationship($newConcept, $articleId, $conceptRelevance );
 
         }
@@ -102,10 +99,10 @@ class WatsonController extends Controller
     // Given a url, uses watsonCall to return the author as a string.
     function getAuthor($url){
         $requestType = 'url/URLGetAuthors';
-
         $authorObject = $this->watsonCall($requestType, $url); //Returns the author object
         $authorName = $authorObject->authors->names[0]; // Extracts the first name in the string of authors.
-        // Error reading
+        // Error reading some edge cases.
+        if($authorName == null)$authorName = "Unknown" ; // Hopefully this default fixes it.
         return $authorName;
     }
 
@@ -117,7 +114,7 @@ class WatsonController extends Controller
         return $titleName;
     }
 
-    // Given a url, asks Watson for concept data and returns an object with it.
+    // Given a url, asks Watson (using GuzzleHTTP) for concept data and returns an object with it.
     // Not a simple string response like getTitle.
     // We need to do something like $responseObject->name, $responseObject->relevence later.
     function getConcepts($url){
@@ -130,7 +127,10 @@ class WatsonController extends Controller
 
         $apikey = getenv('ALCHEMY_API_KEY'); // The api key which is stored in .env for security
         $outputMode="json"; // The format to return.
-        $maxRetrieve=10;
+        $maxRetrieve=10; // Number of concepts retreived. Reccomended was 8, but I grab more because
+        // I'm okay with loosery reccomendations.
+        // For lots of articles they don't even have 10 concepts though.
+        // Concepts are ranked in order of relevence.
 
         // This is where the call is made. The requestType is appended to the base_uri
         // Then all the values are passed in as parameters.
@@ -142,8 +142,8 @@ class WatsonController extends Controller
             ]
         ]);
 
-        $data = $response->getBody();
-        $responseObject = json_decode($data);
+        $data = $response->getBody(); // data is now a json string.
+        $responseObject = json_decode($data); // this converts it to an object.
 
         return $responseObject;
 
@@ -156,7 +156,7 @@ class WatsonController extends Controller
 
 
 
-    // We can use getCombined Data to save on a api call, but it makes the code more complicated.
+    // We could have used getCombined Data to save on a api call, but it makes the code more complicated.
     function watsonCall($type, $url){
 
         // Initiate the guzzler client
@@ -164,12 +164,11 @@ class WatsonController extends Controller
             // Base URI is used with relative requests
             'base_uri' => 'https://watson-api-explorer.mybluemix.net/alchemy-api/calls/',
             // You can set any number of default request options.
-            'timeout'  => 30.0,
+            'timeout'  => 30.0, // GUZZLE reccomended 10ish, but I set it to 30 because the Watson API seemed slower
         ]);
 
         // These are the variables we use to construct the request.
         $requestType = $type; // The type of request specific to alchemy
-        // https://watson-api-explorer.mybluemix.net/apis/alchemy-language-v1?cm_mc_uid=46759359586214802841274&cm_mc_sid_50200000=1480381318#!/Authors/get_url_URLGetAuthors
 
         $apikey = getenv('ALCHEMY_API_KEY'); // The api key which is stored in .env for security
         $outputMode="json"; // The format to return.
@@ -197,6 +196,7 @@ class WatsonController extends Controller
 
     // Given a url, it returns a json of all the keywords and their corresponding sentiments.
     // The difference between this and watsonCall+getX is the extra query parameter 'sentiment'
+    // Maybe I could pass a third boolean to watsonCall? (when I actually start using sentiment, I'll refactor.)
     function getKeywordsWithSentiment ($url){
 
         // Initiate the guzzler client
@@ -221,7 +221,7 @@ class WatsonController extends Controller
             'query' => ['apikey' => $apikey,
                         'url' => $url,
                         'outputMode' => $outputMode,
-                        'sentiment' => $sentimentFlag
+                        'sentiment' => $sentimentFlag // THIS IS THE DIFFERENCE
             ]
         ]);
 

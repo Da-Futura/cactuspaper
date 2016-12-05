@@ -14,9 +14,13 @@ class MustBeAdministrator
      * @return mixed
      */
 
+
+    // Middleware works by checking something, and then passing the request on to the
+    // next middleware until it finally reaches the controller.
+
     // Tests if the user is an admin
     // Continues if yes
-    // Throws an abort if no (later.);
+    // Throws an abort if no (This is really ugly,a nd I should make an error view);
     public function handle($request, Closure $next)
     {
         $user = $request->user();

@@ -3,7 +3,7 @@
     @include('partials.nav')
     <div class="container">
 
-        <h1>{{$article->title}}</h1>
+        <h1 class="exploreHead">{{$article->title}}</h1>
 
 
         <table class="striped">

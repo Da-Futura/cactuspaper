@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Concept extends Model
 {
-
+    // This allows us to assign values specific properties of Article objects
+    // Otherwise it could be a security hazard where
+    // People could edit other users posts by editing the user_id etc
     protected $fillable = [
         'name'
     ];

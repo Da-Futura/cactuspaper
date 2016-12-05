@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-// Pulls in the guzzle client
-use GuzzleHttp\Client;
-
 
 class Article extends Model
 {
 
+    // This allows us to assign values specific properties of Article objects
+    // Otherwise it could be a security hazard where
+    // People could edit other users posts by editing the user_id
     protected $fillable = [
         'url', 'summary', 'group_id'
     ];
@@ -54,6 +54,7 @@ class Article extends Model
     }
 
     // Adds a comment to an article given it and it's user_id;
+    // Called from CommentsController/store
     public function addComment(Comment $comment, $userId){
         $comment->user_id = $userId;
         return $this->comments()->save($comment);

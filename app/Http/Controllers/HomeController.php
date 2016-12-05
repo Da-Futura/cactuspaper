@@ -11,6 +11,9 @@ class HomeController extends Controller
      *
      * @return void
      */
+
+    // includes middleware which restricts access to logged in users.
+    // redirects to login otherwise
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,6 +24,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // returns the users dashboard page.
+    // It displays their current groups, and the ability to add new ones.
     public function index(Request $request)
     {
         $user = $request->user();
@@ -28,6 +34,7 @@ class HomeController extends Controller
         $responseArray = ["user" => $user, "userGroups" => $userGroups];
         return view('home', $responseArray);
     }
+
 
     // Returns an array of Group Objects given a user.
     function getGroupArray($user){

@@ -20,18 +20,18 @@ class CommentsController extends Controller
     }
 
     // Function stores a new note given its corresponding article and group
-    public function store(Article $article, Request $request){
+    public function store(Article $article, Request $request){ // God bless implict model bindings!
 
         $user = $request->user();
         $group = $article->group;
-        //Checks if logged in, creates the comment and redirects to
+        //Checks if logged in and member of the group, creates the comment and redirects to
         // last page
         $permission = $this->isGroupMember($user, $group);
 
         if($permission){
             $comment = new Comment($request->all());
             $user_id = $user->id;
-            $article->addComment($comment, $user_id);
+            $article->addComment($comment, $user_id); // this is a function on the Article model itself.
             return back();
         } else{
             // Otherwise, redirects to login page
@@ -46,6 +46,8 @@ class CommentsController extends Controller
 
         $permission = false;
 
+        // If we needed some more authentication, we could add.
+        // && user_role = "teacher".
         foreach($memberships as $membership){
             if($groupId === $membership->group_id){
                 $permission = true;

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConceptRelationship extends Model
 {
+    // This allows us to assign values specific properties of Article objects
+    // Otherwise it could be a security hazard where
+    // People could edit other users posts by editing the user_id
     protected $fillable = [
         'concept_id', 'article_id','relevance'
     ];
