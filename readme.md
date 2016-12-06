@@ -7,25 +7,29 @@
 
 3) Pull in js dependencies using npm
 
->> nom install
+>> npm install
 
 
 4) Compile sass etc using gulp
 
 >> gulp
 
-5) Edit .env to suit either using mine or from the example provided.
+5) Initialize database
+
+>> php artisan migrate
+
+6) Edit .env to suit either using mine or from the example provided.
    The ALCHMEY API Key is necessary.
 
 
-5) Serve using
+7) Serve using
 
 >> php artisan server
 
-6) Troubleshoot enivitable troubles.
+8) Troubleshoot enivitable troubles.
 
 
-7) Since I didn't create an admin panel yet, you'll need to manually create Groups to join.
+9) Since I didn't create an admin panel yet, you'll need to manually create Groups to join.
 This can be done through phpmyadmin etc, but it may be more interesting/convenient to use tinker
 
 >> php artisan tinker
