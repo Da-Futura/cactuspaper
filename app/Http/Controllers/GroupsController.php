@@ -33,7 +33,8 @@ class GroupsController extends Controller
             $responseArray = ["user" => $user, "group" => $group];
             return view('groups.show', $responseArray);
         } else{
-            return view('groups.showGuest', compact('group'));
+            $responseArray = ["user" => $user, "group" => $group];
+            return view('groups.showGuest', $responseArray);
         }
 
     }

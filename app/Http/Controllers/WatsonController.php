@@ -100,7 +100,9 @@ class WatsonController extends Controller
     function getAuthor($url){
         $requestType = 'url/URLGetAuthors';
         $authorObject = $this->watsonCall($requestType, $url); //Returns the author object
+        return $authorObject->authors->names[0];
         $authorName = $authorObject->authors->names[0]; // Extracts the first name in the string of authors.
+
         // Error reading some edge cases.
         if($authorName == null)$authorName = "Unknown" ; // Hopefully this default fixes it.
         return $authorName;

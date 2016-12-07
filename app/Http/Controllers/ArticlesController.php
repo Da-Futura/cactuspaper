@@ -45,7 +45,7 @@ class ArticlesController extends Controller
 
 
     // Given an article, it returns a view with all associated articles.
-    // It first gets all the concepts for that articles.
+    // It first gets all the concepts for that article.
     // Then for each concept it finds all the other articles linked to that concept.
     // It is automatically sorted by relevence because the concepts of articles
     // are stored in order of relevence in an array.
