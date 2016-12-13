@@ -42,6 +42,18 @@ $(document).ajaxComplete(function(e){
 
 });
 
+// This handles reloading the home page via ajax into the dashboard
+$(document).ajaxComplete(function(e){
+    var mainRow = $('.container');
+    $('.dashboard-link').on('click', function(e){
+        e.preventDefault();
+        url = $(this).attr('href');
+        url += "/ajax";
+
+        mainRow.load(url);
+    });
+});
+
 
 // Intercepts the form submission
 // Submits to watson over ajax

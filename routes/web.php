@@ -13,6 +13,7 @@
 
 Route::get('/','HomeController@index');
 Route::get('/home','HomeController@index');
+Route::get('/home/ajax','HomeController@homeContent');
 Auth::routes();
 
 // Goes to a page which displays a list of all articles.
@@ -62,3 +63,6 @@ Route::get('/explore/{article}', 'ArticlesController@explore');
 // User dashboard with group list and add group.
 // Login redirects to here.
 Route::get('/dashboard', 'HomeController@index');
+
+// Returns the User dashboard content
+Route::get('/dashboard/ajax', 'HomeController@homeContent');

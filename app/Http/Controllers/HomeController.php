@@ -36,6 +36,18 @@ class HomeController extends Controller
     }
 
 
+
+    // returns the users dashboard content partial.
+    // It displays their current groups, and the ability to add new ones.
+    public function homeContent(Request $request)
+    {
+        $user = $request->user();
+        $userGroups = $this->getGroupArray($user);
+        $responseArray = ["user" => $user, "userGroups" => $userGroups];
+        return view('homeContent', $responseArray);
+    }
+
+
     // Returns an array of Group Objects given a user.
     function getGroupArray($user){
         $memberships = $user->memberships;
