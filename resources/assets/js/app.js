@@ -6,14 +6,19 @@
 
 require('./bootstrap');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
-Vue.component('example', require('./components/Example.vue'));
+// This handles loading the group view via AJAX into the dashboard.
 
-const app = new Vue({
-    el: '#app'
+$(document).ready(function(e){
+
+    var mainRow = $('.homeRow');
+    $('.group-link').on('click', function(e){
+        e.preventDefault();
+        groupUrl = $(this).attr('href');
+        groupUrl += "/ajax";
+
+        mainRow.load(groupUrl);
+
+    });
+
 });

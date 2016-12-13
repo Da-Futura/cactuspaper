@@ -39,6 +39,23 @@ class GroupsController extends Controller
 
     }
 
+
+    // If the user is logged in, and a member of the group, return a list of articles in the group and the submit form.
+        public function returnGroupContent(Group $group, Request $request){
+
+        $user = $request->user(); // Gets user from request
+        $group->load('articles'); // eager loads all articles associated with the group.
+
+        if($this->isGroupMember($user,$group)){
+            $responseArray = ["user" => $user, "group" => $group];
+            return view('groups.groupsContent', $responseArray);
+        } else{
+            $responseArray = ["user" => $user, "group" => $group];
+            return view('groups.showGuest', $responseArray);
+        }
+
+    }
+
     // Creates a new user membership given the group id and current user.
     // Please note that the form in home.blade.php needs to include the specific group ID for this to work.
     // A future plan is to have each group have a editable secret key to give temporary access
