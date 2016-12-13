@@ -7,17 +7,35 @@
 require('./bootstrap');
 
 
-
+// AJAX for the dashboard page to load groups.
 $(document).ready(function(e){
 
     // This handles loading the group view via AJAX into the dashboard.
-    var mainRow = $('.homeRow');
+    var mainRow = $('.container');
     $('.group-link').on('click', function(e){
         e.preventDefault();
         groupUrl = $(this).attr('href');
         groupUrl += "/ajax";
 
         mainRow.load(groupUrl);
+
+
+    });
+
+});
+
+
+
+$(document).ajaxComplete(function(e){
+
+    // This handles loading the group view via AJAX into the dashboard.
+    var mainRow = $('.container');
+    $('.article-link').on('click', function(e){
+        e.preventDefault();
+        url = $(this).attr('href');
+        url += "/ajax";
+
+        mainRow.load(url);
 
 
     });
