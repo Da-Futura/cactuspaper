@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
+    protected $fillable = [
+        'name'
+    ];
+
     // This defines the one to many relationship between
     // Groups and Articles
     // One group can have many articles

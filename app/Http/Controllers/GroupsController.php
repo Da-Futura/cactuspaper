@@ -41,7 +41,7 @@ class GroupsController extends Controller
 
 
     // If the user is logged in, and a member of the group, return a list of articles in the group and the submit form.
-        public function returnGroupContent(Group $group, Request $request){
+        public function groupContent(Group $group, Request $request){
 
         $user = $request->user(); // Gets user from request
         $group->load('articles'); // eager loads all articles associated with the group.

@@ -25,7 +25,7 @@ class WatsonController extends Controller
 
 
     // Function stores a new article given its corresponding user
-    public function storeArticle(Request $request){
+    public function storeArticleBASE(Request $request){
 
 
         // Does not allow for duplicate article urls.
@@ -58,7 +58,7 @@ class WatsonController extends Controller
             $this->storeConcepts($conceptsObject, $article->id);
 
 
-            return back();
+            return back(); // Need to make it explicitly point to the groups.
 
         } else{
             // Otherwise, redirects to login page
@@ -66,6 +66,47 @@ class WatsonController extends Controller
         }
 
     }
+
+
+
+
+    // Function stores a new article given its corresponding user
+    public function storeArticleAJAX(Request $request){
+        $groupId = $request->group_id;
+        return $request;
+        // Does not allow for duplicate article urls.
+        // Just redirects to page without showing an error though.
+        $this->validate($request,
+                        [
+                            'url' => 'unique:articles'
+                        ]);
+
+
+
+        //Checks if logged in, creates the article, stores the concepts and redirects to
+        // last page
+        $article = new Article(["url"=>$request->url, "summary"=> $request->summary, "user_id" => $request->user_id, "group_id"=>$request->group_id]);
+        $articleUrl = $article->url;
+
+        $articleTitle = $this->getTitle($articleUrl); // Fetches title from Watson
+        $article->title = $articleTitle;
+
+
+        $articleAuthor = $this->getAuthor($articleUrl);
+        $article->author = $articleAuthor;
+
+
+        $userId = $request->user_id;  // alternately $request->user();
+        $article->user_id = $userId;
+        $article->save();
+
+        $conceptsObject = $this->getConcepts($articleUrl);
+        $this->storeConcepts($conceptsObject, $article->id);
+
+        return;
+
+    }
+
 
     // This is the sex right here. Only Creates a concept if it didn't exist before.
     // Creates a new concept relationshsip for each concept.

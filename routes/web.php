@@ -22,19 +22,29 @@ Route::get('/articles', 'ArticlesController@index');
 // It will display an article as well as all associated comments.
 Route::get('/article/{article}', 'ArticlesController@show');
 
+// Returns the html to fill the article content given it's id
+Route::get('/article/{article}/ajax', 'ArticlesController@articleContent');
+
+
+
 // Creates a new comment by
 // passing  an article id and the request to the Comments controller
 Route::post('/article/{article}/newComment', 'CommentsController@store');
 
 // Creates a new article tied to the current user
-Route::post('/article/create', 'WatsonController@storeArticle');
+Route::post('/article/create', 'WatsonController@storeArticleBASE');
+
+// Creates a new article tied to the current user via AJAX
+Route::post('/article/create/ajax', 'WatsonController@storeArticleAJAX');
+
+
 
 // Goes to a specific group page given its id.
 // It will display the group and all associated contents.
 Route::get('/group/{group}', 'GroupsController@show');
 
 //Returns the html to fill the group content.
-Route::get('/group/{group}/ajax', 'GroupsController@returnGroupContent');
+Route::get('/group/{group}/ajax', 'GroupsController@groupContent');
 
 
 // Creates a new membership between the signed in user and the group id passed.

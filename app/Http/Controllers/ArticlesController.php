@@ -44,6 +44,21 @@ class ArticlesController extends Controller
 
 
 
+    // Finds the Article associated with the id
+    // Returns the relavent articlesContent html
+    public function articleContent(Article $article, Request $request){
+        $user = $request->user();
+        $article->load('comments'); // eager loading all associated comments so we don't query the database a bunch of times.
+        $responseArray = [  // Here we manually construct the array to pass to the view.
+            "user" => $user, // It's just more legible than trying to the a weird /compact/ call.
+            "article" => $article
+        ];
+
+        return view('articles.articleContent', $responseArray);
+    }
+
+
+
     // Given an article, it returns a view with all associated articles.
     // It first gets all the concepts for that article.
     // Then for each concept it finds all the other articles linked to that concept.

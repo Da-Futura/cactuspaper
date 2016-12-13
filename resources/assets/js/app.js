@@ -7,10 +7,10 @@
 require('./bootstrap');
 
 
-// This handles loading the group view via AJAX into the dashboard.
 
 $(document).ready(function(e){
 
+    // This handles loading the group view via AJAX into the dashboard.
     var mainRow = $('.homeRow');
     $('.group-link').on('click', function(e){
         e.preventDefault();
@@ -19,6 +19,45 @@ $(document).ready(function(e){
 
         mainRow.load(groupUrl);
 
+
     });
 
 });
+
+
+// Intercepts the form submission
+// Submits to watson over ajax
+// Reconstructs the url to get the groupsContent
+
+// $(document).ajaxComplete(function(e){
+
+//     var groupsRow = $('.groupsRow');
+//     $('#article-submit-form').submit(function(e){
+//         e.preventDefault();
+
+
+//         // Get some values from elements on the page:
+//         var aUrl = $( "#url-input" ).val(),
+//             aSum = $( "#summary-input" ).val(),
+//             group = $( "#group-input" ).val(),
+//             user_id = $( "#user-input" ).val();
+//         url = $("#article-submit-form").attr( "action" );
+//         url += "/ajax";
+//         console.log(url);
+
+//         console.log(aSum + aUrl + group);
+//         // Send the data using post
+//         var posting = $.post( url, { 'url' : aUrl, 'summary' : aSum, 'group_id' : group, 'user_id' : user_id  } );
+//         console.log(posting);
+
+
+//         // groupID = $('#group-input').val();
+//         // groupUrl = window.location.href;
+//         // pathname = window.location.pathname;
+//         // groupUrl = groupUrl.replace(pathname,'');
+//         // groupUrl += "/group/" + groupID + "/ajax";
+
+//         // groupsRow.load(groupUrl);
+
+//     });
+// });
