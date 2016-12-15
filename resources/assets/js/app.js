@@ -6,54 +6,35 @@
 
 require('./bootstrap');
 
-
 // AJAX for the dashboard page to load groups.
 $(document).ready(function(e){
-
     // This handles loading the group view via AJAX into the dashboard.
-    var mainRow = $('.container');
-    $('.group-link').on('click', function(e){
-        e.preventDefault();
-        groupUrl = $(this).attr('href');
-        groupUrl += "/ajax";
-
-        mainRow.load(groupUrl);
-
-
-    });
+    var mainContainer = $('#homeContent');
+    ajaxLink('.group-link', mainContainer);
 
 });
 
 
-
+// This loads the content of an article page into the #homeContent
 $(document).ajaxComplete(function(e){
-
-    // This handles loading the group view via AJAX into the dashboard.
-    var mainRow = $('.container');
-    $('.article-link').on('click', function(e){
-        e.preventDefault();
-        url = $(this).attr('href');
-        url += "/ajax";
-
-        mainRow.load(url);
-
-
-    });
-
+    var mainContainer = $('#homeContent');
+    ajaxLink('.article-link', mainContainer);
+    ajaxLink('.group-link', mainContainer);
+    ajaxLink('.dashboard-link', mainContainer);
 });
 
-// This handles reloading the home page via ajax into the dashboard
-$(document).ajaxComplete(function(e){
-    var mainRow = $('.container');
-    $('.dashboard-link').on('click', function(e){
+
+// Given a string '.foo-link' and a dom object, like $('#main')
+// ajax all .foo-links into the mainContainer.
+
+function ajaxLink(linkClass, mainContainer){
+    $(linkClass).on('click', function(e){
         e.preventDefault();
-        url = $(this).attr('href');
+        var url = $(this).attr('href');
         url += "/ajax";
-
-        mainRow.load(url);
+        mainContainer.load(url);
     });
-});
-
+};
 
 // Intercepts the form submission
 // Submits to watson over ajax
@@ -91,3 +72,9 @@ $(document).ajaxComplete(function(e){
 
 //     });
 // });
+
+Vue.component('example', require('./components/Example.vue'));
+
+const app = new Vue({
+    el: '#app'
+});

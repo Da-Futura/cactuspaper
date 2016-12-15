@@ -1,10 +1,10 @@
 @extends('layout')
-
 @section('content')
     @include('partials.nav')
 
-    <div class="container">
+    <div class="container" id="homeContent">
         @include('homeContent')
     </div>
+
 
 @endsection

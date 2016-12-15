@@ -91,13 +91,14 @@ class ArticlesController extends Controller
         }
 
         // run these tests to see what the format looks like.
-        //        return $relatedConceptRelationships;
-        //        return $relatedConceptRelationships[14][0]->article->id;
+        // return $relatedConceptRelationships;
+        //        return $relatedConceptRelationships[2][0]->article->title;
 
         $duplicateArray = [$article->id];
+        $user = $request->user();
         // This is to prevent listing a reccomended article more than once
         // since they might have multiple concepts in common.
-        $responseArray = ["article" => $article, "conceptRelationshipArray" => $relatedConceptRelationships, "user" => $request->user(), "duplicateArray" => $duplicateArray];
+        $responseArray = ["article" => $article, "conceptRelationshipArray" => $relatedConceptRelationships, "user" => $user, "duplicateArray" => $duplicateArray];
         return view('articles.explore', $responseArray);
     }
 

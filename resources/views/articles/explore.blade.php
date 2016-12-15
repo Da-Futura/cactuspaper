@@ -18,7 +18,6 @@
             <tbody>
                 @foreach($conceptRelationshipArray as $a)
 
-
                     @foreach($a as $b)
                         @if(!(in_array($b->article->id, $duplicateArray)))
                             <tr>
@@ -27,7 +26,7 @@
                                 <td><a href="{{url('group', [$b->article->group->id])}}">{{$b->article->group->name}}</a></td>
                             </tr>
                             @php
-                            array_push($duplicateArray,$b->article->id);
+                            array_push($duplicateArray, $b->article->id);
                             @endphp
                         @endif
                     @endforeach
