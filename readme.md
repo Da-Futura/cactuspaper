@@ -48,8 +48,3 @@ eg:
 Another point of interest may be:
 >> App/Concept::all()
 after some articles have been inserted.
-
-
-I'd like to try to sell subscriptions to schools and sutff soon, so I'm not making it avaliable
-for further development outside the scope of the assignment.
-http://www.binpress.com/license/edit/h/14dd226435c8730ae760097c2d0c86d5882bdbef
