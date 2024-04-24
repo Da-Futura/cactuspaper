@@ -108,7 +108,7 @@ class WatsonController extends Controller
     }
 
 
-    // This is the sex right here. Only Creates a concept if it didn't exist before.
+    // Only Creates a concept if it didn't exist before.
     // Creates a new concept relationshsip for each concept.
     function storeConcepts($conceptsObject, $articleId){
 
